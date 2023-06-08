@@ -1,13 +1,6 @@
 const header = {
   logo: "Easy-Peasy",
   links: {
-    creator: [
-      {
-        id: 1,
-        media: "Linkedin",
-        url: "https://www.linkedin.com/in/muhahsan",
-      },
-    ],
     easy_peasy: [
       {
         id: 1,
@@ -24,8 +17,8 @@ const header = {
 };
 
 const layout = {
-  title: "",
-  description: "",
+  title: "Curious about Easy-Peasy!",
+  description: "Easy Peasy is an abstraction of Redux.",
 };
 
 const footer = {
@@ -33,6 +26,9 @@ const footer = {
     2023 < new Date(Date.now()).getFullYear()
       ? `2023 - ${new Date(Date.now()).getFullYear()}`
       : `2023`,
+  link: {
+    creator: "https://www.linkedin.com/in/muhahsan",
+  },
 };
 
 export { header, layout, footer };
