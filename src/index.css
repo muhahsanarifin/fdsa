@@ -5,12 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  section {
-    @apply p-8;
-  }
-}
-
 :root {
   font-family: 'Lato', sans-serif;
   line-height: 1.5;
@@ -19,7 +13,6 @@
   /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424; */
-  background-color: #f1f6f9;
   color: #212a3e;
 
   font-synthesis: none;
@@ -35,6 +28,7 @@ body {
   /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  align-items: center;
   justify-content: center;
 }
 
