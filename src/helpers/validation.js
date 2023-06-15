@@ -1,9 +1,18 @@
 export const body = (body) => {
-  const { username, email, password, passwordConfirmation } = body;
+  const { author, publish, link, description } = body;
 
-  if (username === "") return "Required username.";
-  if (email === "") return "Required email.";
-  if (password === "") return "Required password.";
-  if (passwordConfirmation === "") return "Required password confirmation.";
-  if (password !== passwordConfirmation) return "Password does not match";
+  if (author === "") return "Required author.";
+  if (publish === "") return "Required publish.";
+  if (link === "") return "Required link.";
+  if (description === "") return "Required description.";
+};
+
+// Active save
+export const save = (body) => {
+  return Object.values(body).some((currentValue) => currentValue === "");
+};
+
+// Active clear
+export const clear = (body) => {
+  return Object.values(body).some((currentValue) => currentValue != "");
 };
