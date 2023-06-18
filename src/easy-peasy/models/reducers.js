@@ -11,14 +11,37 @@ const initState = {
 };
 
 const notesReducer = reducer((state = initState, action) => {
+  const { addNotes, deleteNote, deleteNotes, editNote } = types;
   switch (action.type) {
-    case types.addNotes:
+    case addNotes:
       return {
         ...state,
         get: {
           data: action.payload.data,
           isEmpty: false,
         },
+      };
+    case deleteNotes:
+      return {
+        ...state,
+        get: {
+          data: action.payload.data,
+          isEmpty: true,
+        },
+      };
+    case deleteNote:
+      return {
+        ...state,
+        get: {
+          data: action.payload.data,
+          isEmpty: false,
+        },
+      };
+    case editNote:
+      return {
+        ...state,
+        date: action.payload.data,
+        isEmpty: false,
       };
     default:
       return state;
