@@ -9,7 +9,6 @@ const initState = {
 };
 
 const confirmationReducer = reducer((state = initState, action) => {
-  console.log(action)
   const { confirmationEdit } = types;
   switch (action.type) {
     case confirmationEdit:
