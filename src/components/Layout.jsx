@@ -51,10 +51,10 @@ const Example = () => {
       {/* Result section */}
       {!isEmpty && (
         <div className="my-6">
-          <div className="collapse bg-base-200 border-2 border-solid border-green-500">
+          <div className="collapse bg-base-200 ">
             <input type="checkbox" className="peer" />
-            <div className="collapse-title font-semibold flex items-center border-2 border-solid border-yellow-500">
-              <p className="border-2 border-solid border-purple-500">
+            <div className="collapse-title font-semibold flex items-center">
+              <p>
                 Click this to show/hide result
               </p>
               <Button.deleteAll

@@ -52,7 +52,7 @@ export const Main = ({ data }) => {
         data: [],
         isEmpty: true,
       };
-      dispatch(actions.deleteNoteThunk(emptyNotes));
+      return dispatch(actions.deleteNoteThunk(emptyNotes));
     }
 
     dispatch(
@@ -67,14 +67,14 @@ export const Main = ({ data }) => {
     <>
       <table className="table table-sm">
         {/* head */}
-        <thead className="border-2 border-solid border-purple-500">
+        <thead className="border-b-2 borde-solid">
           <tr>
             {th.map((el, idx) => (
               <th key={idx}>{el}</th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-solid divide-y-2">
           {/* row */}
           {data.map((el, idx) => (
             <tr key={idx}>
