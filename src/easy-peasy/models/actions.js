@@ -20,6 +20,11 @@ const editNoteAction = (data) => ({
   payload: { data },
 });
 
+const confirmationEditNoteAction = (data) => ({
+  type: types.confirmationEdit,
+  payload: { data },
+});
+
 const addNotesThunk = (payload) => {
   return async (dispatch) => {
     dispatch(addNotesAction(payload));
@@ -44,11 +49,18 @@ const editNoteThunk = (payload) => {
   };
 };
 
+const confirmationEditNoteThunk = (payload) => {
+  return async (dispatch) => {
+    dispatch(confirmationEditNoteAction(payload));
+  };
+};
+
 const actions = {
   addNotesThunk,
   deleteNotesThunk,
   deleteNoteThunk,
   editNoteThunk,
+  confirmationEditNoteThunk,
 };
 
 export default actions;

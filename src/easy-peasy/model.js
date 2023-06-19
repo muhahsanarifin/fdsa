@@ -10,4 +10,28 @@
 //   }),
 // };
 
+// const confirmation = {
+//   data: {
+//     id: "",
+//     author: "",
+//     publish: "",
+//     link: "",
+//     description: "",
+//     idx: "",
+//   },
+//   edit: action(
+//     (state, payload) => {
+//       return {
+//         ...state,
+//         data: { ...state.data, ...payload },
+//       };
+//     },
+//     {
+//       immer: false,
+//     }
+//   ),
+// };
+
+// const model = { confirmation };
+
 // export default model;
