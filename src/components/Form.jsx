@@ -9,12 +9,8 @@ import * as timer from "../helpers/timer";
 export const Json = () => {
   const dispatch = useStoreDispatch();
   const { data, isEmpty } = useStoreState((state) => state.notes?.get);
+  // Confirmation state
   const edit = useStoreState((state) => state.confirmation?.edit);
-
-  // console.log(edit.isEmpty);
-
-  // console.log("Edit data: ", edit);
-
   // const { addNote } = useStoreActions((actions) => actions);
   const elForm = document.getElementById("form");
 
@@ -85,7 +81,6 @@ export const Json = () => {
   };
 
   // Handle save edit
-
   const handleSaveEdit = (e) => {
     e.preventDefault();
 
@@ -103,6 +98,21 @@ export const Json = () => {
     data.splice(edit.data.idx, 1, note);
 
     dispatch(actions.editNoteThunk(data));
+
+    dispatch(
+      actions.confirmationEditNoteThunk({
+        data: {},
+        isEmpty: true,
+      })
+    );
+
+    // Reset body
+    setBody({
+      author: "",
+      publish: "",
+      link: "",
+      description: "",
+    });
   };
 
   // Handle clear input

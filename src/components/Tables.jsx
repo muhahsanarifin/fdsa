@@ -36,13 +36,31 @@ export const Main = ({ data }) => {
 
     const data = { ...note, ...idx };
 
-    dispatch(actions.confirmationEditNoteThunk(data));
+    dispatch(
+      actions.confirmationEditNoteThunk({
+        data: data,
+        isEmpty: false,
+      })
+    );
   };
 
   const handleDelete = (id) => {
     const notes = data.filter((el) => el.id !== id);
 
-    dispatch(actions.deleteNoteThunk(notes));
+    if (data.length === 1) {
+      const emptyNotes = {
+        data: [],
+        isEmpty: true,
+      };
+      dispatch(actions.deleteNoteThunk(emptyNotes));
+    }
+
+    dispatch(
+      actions.deleteNoteThunk({
+        data: notes,
+        isEmpty: false,
+      })
+    );
   };
 
   return (
