@@ -13,6 +13,7 @@
     "axios": "^1.4.0",
     "class-variance-authority": "^0.6.0",
     "easy-peasy": "^6.0.0",
+    "luxon": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-motion-animate": "^1.0.6",
