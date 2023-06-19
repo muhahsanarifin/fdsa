@@ -11,6 +11,7 @@ export const Json = () => {
   const { data, isEmpty } = useStoreState((state) => state.notes?.get);
   // Confirmation state
   const edit = useStoreState((state) => state.confirmation?.edit);
+
   // const { addNote } = useStoreActions((actions) => actions);
   const elForm = document.getElementById("form");
 
@@ -127,6 +128,15 @@ export const Json = () => {
       link: "",
       description: "",
     });
+
+    // Reset Confirmation note
+    !edit.isEmpty &&
+      dispatch(
+        actions.confirmationEditNoteThunk({
+          data: {},
+          isEmpty: true,
+        })
+      );
   };
 
   return (
