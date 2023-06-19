@@ -12,7 +12,7 @@ const deleteNotesAction = (data) => ({
 
 const deleteNoteAction = (data) => ({
   type: types.deleteNote,
-  payload: { data },
+  payload: data,
 });
 
 const editNoteAction = (data) => ({
@@ -22,7 +22,7 @@ const editNoteAction = (data) => ({
 
 const confirmationEditNoteAction = (data) => ({
   type: types.confirmationEdit,
-  payload: { data },
+  payload: data,
 });
 
 const addNotesThunk = (payload) => {

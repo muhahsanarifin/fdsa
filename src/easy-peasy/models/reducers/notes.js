@@ -32,7 +32,7 @@ const notesReducer = reducer((state = initState, action) => {
     case deleteNote:
       return {
         ...state,
-        get: action.payload.data,
+        get: action.payload,
       };
     case editNote:
       return {
