@@ -26,7 +26,7 @@ const notesReducer = reducer((state = initState, action) => {
         ...state,
         get: {
           data: action.payload.data,
-          isEmpty: false,
+          isEmpty: true,
         },
       };
     case deleteNote:

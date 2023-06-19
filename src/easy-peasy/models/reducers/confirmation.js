@@ -14,10 +14,7 @@ const confirmationReducer = reducer((state = initState, action) => {
     case confirmationEdit:
       return {
         ...state,
-        edit: {
-          data: action.payload.data,
-          isEmpty: false,
-        },
+        edit: action.payload.data
       };
     default:
       return state;
