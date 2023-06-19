@@ -1,20 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as validate from "../helpers/validation";
 import * as Button from "../components/Button";
+import { useStoreDispatch, useStoreState, useStoreActions } from "easy-peasy";
+import actions from "../easy-peasy/models/actions";
+import * as create from "../helpers/id";
+import * as timer from "../helpers/timer";
 
 export const Json = () => {
+  const dispatch = useStoreDispatch();
+  const { data, isEmpty } = useStoreState((state) => state.notes?.get);
+  const edit = useStoreState((state) => state.confirmation?.edit);
+
+  // console.log(edit.isEmpty);
+
+  // console.log("Edit data: ", edit);
+
+  // const { addNote } = useStoreActions((actions) => actions);
+  const elForm = document.getElementById("form");
+
   const [body, setBody] = useState({
-    username: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
+    author: "",
+    publish: "",
+    link: "",
+    description: "",
   });
 
+  // Input
   const handleInput = (e) => {
     const { name, value } = e.target;
     setBody({ ...body, [name]: value });
   };
 
+  // Edit input
+  const handleEditInput = (e) => {
+    const { name, value } = e.target;
+    setBody({ ...body, [name]: value });
+  };
+
+  useEffect(() => {
+    const { data } = edit;
+
+    !edit.isEmpty &&
+      setBody({
+        author: data.author,
+        publish: timer.convertDate(data.publish),
+        link: data.link,
+        description: data.description,
+      });
+  }, [edit]);
+
+  // Handle save
   const handleSave = (e) => {
     e.preventDefault();
 
@@ -23,104 +58,145 @@ export const Json = () => {
     if (validateBody) return console.error(validateBody);
 
     // Body
-    console.log("Body:", body);
+    const { author, publish, link, description } = body;
+
+    const note = {
+      id: isEmpty ? 1 : create.Id(data) + 1,
+      author: author,
+      publish: Date.parse(publish),
+      link: link,
+      description: description,
+    };
+
+    // addNote(note);
+
+    dispatch(actions.addNotesThunk([...data, note]));
 
     // Reset form
-    document.getElementById("form").reset();
+    elForm.reset();
 
     // Reset body
     setBody({
-      username: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
+      author: "",
+      publish: "",
+      link: "",
+      description: "",
+    });
+  };
+
+  // Handle save edit
+
+  const handleSaveEdit = (e) => {
+    e.preventDefault();
+
+    // Body
+    const { author, publish, link, description } = body;
+
+    const note = {
+      id: edit.data.id,
+      author: author,
+      publish: Date.parse(publish),
+      link: link,
+      description: description,
+    };
+
+    data.splice(edit.data.idx, 1, note);
+
+    dispatch(actions.editNoteThunk(data));
+  };
+
+  // Handle clear input
+  const handleClear = () => {
+    // Reset form
+    elForm.reset();
+
+    // Reset body
+    setBody({
+      author: "",
+      publish: "",
+      link: "",
+      description: "",
     });
   };
 
   return (
-    <section className="max-w-4xl mx-auto p-6  bg-white rounded-md shadow-md dark:bg-gray-800">
-      <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
-        Easy-Peasy Form
+    <section className="max-w-4xl mx-auto p-6 rounded-md shadow-md bg-base-200">
+      <h2 className="text-lg font-semibold capitalize text-gray-700">
+        Easy-Peasy Notes
       </h2>
 
-      <form onSubmit={handleSave} id="form">
+      <form onSubmit={!edit.isEmpty ? handleSaveEdit : handleSave} id="form">
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="username"
-            >
-              Username
+            <label className="text-gray-700" htmlFor="author">
+              Author
             </label>
             <input
-              name="username"
-              id="username"
+              name="author"
+              id="author"
               type="text"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               onChange={(e) => {
-                handleInput(e);
+                !edit.isEmpty ? handleEditInput(e) : handleInput(e);
               }}
+              value={body.author}
             />
           </div>
 
           <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="emailAddress"
-            >
-              Email Address
+            <label className="text-gray-700" htmlFor="publish">
+              Publish
             </label>
             <input
-              name="email"
-              id="emailAddress"
-              type="email"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              name="publish"
+              id="publish"
+              type="date"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               onChange={(e) => {
-                handleInput(e);
+                !edit.isEmpty ? handleEditInput(e) : handleInput(e);
               }}
+              value={body.publish}
             />
           </div>
 
           <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="password"
-            >
-              Password
+            <label className="text-gray-700" htmlFor="link">
+              Link
             </label>
             <input
-              name="password"
-              id="password"
-              type="password"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              name="link"
+              id="link"
+              type="text"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               onChange={(e) => {
-                handleInput(e);
+                !edit.isEmpty ? handleEditInput(e) : handleInput(e);
               }}
+              value={body.link}
             />
           </div>
 
           <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="passwordConfirmation"
-            >
-              Password Confirmation
+            <label className="text-gray-700" htmlFor="description">
+              Description
             </label>
             <input
-              name="passwordConfirmation"
-              id="passwordConfirmation"
-              type="password"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+              name="description"
+              id="description"
+              type="text"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
               onChange={(e) => {
-                handleInput(e);
+                !edit.isEmpty ? handleEditInput(e) : handleInput(e);
               }}
+              value={body.description}
             />
           </div>
         </div>
 
         <div className="flex justify-end mt-6 gap-x-2">
-          {false && <Button.Clear onTitle={"Clear"} />}
-          <Button.Save onTitle={"Save"} />
+          {validate.clear(body) && (
+            <Button.Clear onTitle={"Clear"} setHandleClear={handleClear} />
+          )}
+          <Button.Save onTitle={"Save"} onDisable={validate.save(body)} />
         </div>
       </form>
     </section>

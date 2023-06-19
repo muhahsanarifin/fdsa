@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 
-export const Info = () => {
+export const Info = ({setHandleCloseAlert}) => {
   return (
     <div className="alert w-[50vw] my-5 mx-auto">
       <svg
@@ -16,9 +16,20 @@ export const Info = () => {
           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         ></path>
       </svg>
-      <span>we use cookies for no reason.</span>
+      <span className="flex items-center gap-x-2 text-sm font-semibold">
+        <p>
+          Use{" "}
+          <a
+            href="https://github.com/reduxjs/redux-devtools"
+            className="text-[#3ABFF8]"
+          >
+            Redux Devtools
+          </a>{" "}
+          for debugging state changes.
+        </p>
+      </span>
       <div>
-        <button onClick={() => console.log("Test close alert")}>
+        <button onClick={setHandleCloseAlert}>
           <Icon icon="ion:close" width="24" />
         </button>
       </div>
