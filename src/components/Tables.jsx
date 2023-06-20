@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import * as Button from "./Button";
 import { useStoreDispatch, useStoreActions } from "easy-peasy";
 import actions from "../easy-peasy/models/actions";
+import { JsonViewer } from "@textea/json-viewer";
 
 export const Main = ({ data }) => {
   const dispatch = useStoreDispatch();
@@ -67,17 +68,17 @@ export const Main = ({ data }) => {
     <>
       <table className="table table-sm">
         {/* head */}
-        <thead className="border-b-2 borde-solid">
+        <thead>
           <tr>
             {th.map((el, idx) => (
               <th key={idx}>{el}</th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-solid divide-y-2">
+        <tbody>
           {/* row */}
           {data.map((el, idx) => (
-            <tr key={idx}>
+            <tr key={idx} className="odd:bg-white even:bg-slate-50">
               <th>{el.id}</th>
               <td>{el.author}</td>
               <td>{timer.date(el.publish)}</td>
@@ -126,5 +127,11 @@ export const Main = ({ data }) => {
         </tbody>
       </table>
     </>
+  );
+};
+
+export const JSON = ({data}) => {
+  return (
+    <JsonViewer value={data}/>
   );
 };

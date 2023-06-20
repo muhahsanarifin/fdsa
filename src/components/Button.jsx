@@ -9,7 +9,7 @@ export const Clear = ({ onTitle, setHandleClear }) => {
   );
 };
 
-export const Save = ({onTitle, onDisable}) => {
+export const Save = ({ onTitle, onDisable }) => {
   return (
     <button
       className={
@@ -21,12 +21,12 @@ export const Save = ({onTitle, onDisable}) => {
       {onTitle}
     </button>
   );
-}
+};
 
 export const deleteAll = ({ onTitle, setHandleDeleteAll }) => {
   return (
     <button
-      className="ml-auto px-8 py-2.5 z-50 leading-5 duration-300 transform text-gray-700"
+      className="ml-auto px-8 py-2.5 leading-5 duration-300 transform text-gray-700 hover:text-gray-800 text-[12px]"
       onClick={setHandleDeleteAll}
     >
       {onTitle}
@@ -35,6 +35,17 @@ export const deleteAll = ({ onTitle, setHandleDeleteAll }) => {
 };
 
 // Del = Delete, Edit = Edit
-export const DelEdit = ({onTitle, setDelEdit}) => {
+export const DelEdit = ({ onTitle, setDelEdit }) => {
   return <button onClick={setDelEdit}>{onTitle}</button>;
-}
+};
+
+export const Convert = ({ onTitle, setHandleConvert }) => {
+  return (
+    <button
+      onClick={setHandleConvert}
+      className="text-gray-700 hover:text-gray-800 text-[12px]"
+    >
+      {onTitle}
+    </button>
+  );
+};

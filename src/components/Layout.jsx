@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useStoreState, useStoreDispatch } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
 import * as content from "../utils/contents";
@@ -34,12 +34,17 @@ const Example = () => {
   const dispatch = useStoreDispatch();
   // const { notes } = useStoreState((state) => state);
   const { data, isEmpty } = useStoreState((state) => state.notes?.get);
+  const [convertToJSON, setConvertToJSON] = useState(false);
 
   // Delete notes
   const handleDeleteNotes = () => {
     const existNotes = data.length > 0 && [];
 
     dispatch(actions.deleteNotesThunk(existNotes));
+  };
+
+  const handleConvert = () => {
+    setConvertToJSON(!convertToJSON);
   };
 
   return (
@@ -54,16 +59,24 @@ const Example = () => {
           <div className="collapse bg-base-200 ">
             <input type="checkbox" className="peer" />
             <div className="collapse-title font-semibold flex items-center">
-              <p>
-                Click this to show/hide result
-              </p>
-              <Button.deleteAll
-                onTitle={"Delete all"}
-                setHandleDeleteAll={handleDeleteNotes}
-              />
+              <p>Click this to show/hide result</p>
+              <div className="flex items-center ml-auto z-50">
+                <Button.Convert
+                  onTitle={convertToJSON ? "Main Result" : "Convert to JSON"}
+                  setHandleConvert={handleConvert}
+                />
+                <Button.deleteAll
+                  onTitle={"Delete all"}
+                  setHandleDeleteAll={handleDeleteNotes}
+                />
+              </div>
             </div>
             <div className="collapse-content overflow-x-auto">
-              <Table.Main data={data} />
+              {convertToJSON ? (
+                <Table.JSON data={data} />
+              ) : (
+                <Table.Main data={data} />
+              )}
             </div>
           </div>
         </div>
