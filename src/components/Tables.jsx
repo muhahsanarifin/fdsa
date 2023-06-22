@@ -13,12 +13,12 @@ export const Main = ({ data }) => {
   // const { edit } = useStoreActions((actions) => actions?.confirmation);
   const [activeTooltip, setActiveTooltip] = useState("");
 
-  const handleCopy = async (link) => {
+  const handleCopy = async (link, id) => {
     try {
       const copy = await event.clibBoard(link);
 
       if (copy) {
-        setActiveTooltip(copy);
+        setActiveTooltip([copy, id]);
       }
     } catch (error) {
       console.error(error.message);
@@ -83,13 +83,13 @@ export const Main = ({ data }) => {
               <td>{el.author}</td>
               <td>{timer.date(el.publish)}</td>
               <td
-                onDoubleClick={() => handleCopy(el.link)}
+                onDoubleClick={() => handleCopy(el.link, el.id)}
                 className="cursor-pointer"
               >
-                {activeTooltip === el.link ? (
+                {activeTooltip[0] === el.link && activeTooltip[1] === el.id ? (
                   <div
                     className="tooltip tooltip-open"
-                    data-tip={`Copied ${activeTooltip}`}
+                    data-tip={`Copied ${activeTooltip[0]}`}
                   >
                     <p>{el.link}</p>
                   </div>
@@ -130,8 +130,6 @@ export const Main = ({ data }) => {
   );
 };
 
-export const JSON = ({data}) => {
-  return (
-    <JsonViewer value={data}/>
-  );
+export const JSON = ({ data }) => {
+  return <JsonViewer value={data} />;
 };

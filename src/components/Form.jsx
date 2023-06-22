@@ -9,6 +9,7 @@ import * as timer from "../helpers/timer";
 export const Json = () => {
   const dispatch = useStoreDispatch();
   const { data, isEmpty } = useStoreState((state) => state.notes?.get);
+  const result = useStoreState((state) => state.notes?.data);
   // Confirmation state
   const edit = useStoreState((state) => state.confirmation?.edit);
 
@@ -96,9 +97,27 @@ export const Json = () => {
       description: description,
     };
 
+    // Data
     data.splice(edit.data.idx, 1, note);
 
     dispatch(actions.editNoteThunk(data));
+
+    // Result
+    const { currentPosts, isEmpty, meta } = result;
+
+    currentPosts.splice(edit.data.idx, 1, note);
+
+    dispatch(
+      actions.editNoteCurrentPostThunk({
+        currentPosts: currentPosts,
+        isEmpty: isEmpty,
+        meta: {
+          currentPage: meta.currentPage,
+          totalPages: meta.totalPages,
+          totalPosts: meta.totalPosts,
+        },
+      })
+    );
 
     dispatch(
       actions.confirmationEditNoteThunk({

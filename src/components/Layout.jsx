@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useStoreState, useStoreDispatch } from "easy-peasy";
 import { useNavigate } from "react-router-dom";
 import * as content from "../utils/contents";
@@ -6,6 +6,8 @@ import * as Form from "./Form";
 import * as Table from "./Tables";
 import * as Button from "./Button";
 import actions from "../easy-peasy/models/actions";
+import Pagination from "../components/Pagination";
+import metaDataPagination from "../helpers/pagination";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -34,7 +36,12 @@ const Example = () => {
   const dispatch = useStoreDispatch();
   // const { notes } = useStoreState((state) => state);
   const { data, isEmpty } = useStoreState((state) => state.notes?.get);
+  const result = useStoreState((state) => state.notes?.data);
   const [convertToJSON, setConvertToJSON] = useState(false);
+
+  // Pagination
+  const [currentPage, setCurrenPage] = useState(1);
+  const [postsPerPage, setPostsPerpage] = useState(5);
 
   // Delete notes
   const handleDeleteNotes = () => {
@@ -47,6 +54,37 @@ const Example = () => {
     setConvertToJSON(!convertToJSON);
   };
 
+  // Pagination
+  // const lastPostIdx = currentPage * postsPerPage;
+  // console.log("Last Post Index: ", lastPostIdx);
+
+  // const fistPostIdx = lastPostIdx - postsPerPage;
+  // console.log("First Post Index: ", fistPostIdx);
+
+  // const currentPosts = data.slice(fistPostIdx, lastPostIdx);
+  // console.log("Current Posts: ", currentPosts);
+
+  const meta = metaDataPagination(currentPage, postsPerPage);
+
+  useEffect(() => {
+    const currentPosts = data.slice(
+      meta.firstPostIdx(postsPerPage),
+      meta.lastPostIdx
+    );
+
+    dispatch(
+      actions.getNotesThunk({
+        currentPosts: currentPosts,
+        isEmpty: false,
+        meta: {
+          currentPage: currentPage,
+          totalPages: Math.ceil(data.length / postsPerPage),
+          totalPosts: data.length,
+        },
+      })
+    );
+  }, [data, currentPage]);
+
   return (
     <div className=" my-5 mx-auto w-[50vw]">
       {/* Form section */}
@@ -56,7 +94,7 @@ const Example = () => {
       {/* Result section */}
       {!isEmpty && (
         <div className="my-6">
-          <div className="collapse bg-base-200 ">
+          <div className="collapse bg-base-200">
             <input type="checkbox" className="peer" />
             <div className="collapse-title font-semibold flex items-center">
               <p>Click this to show/hide result</p>
@@ -71,11 +109,26 @@ const Example = () => {
                 />
               </div>
             </div>
-            <div className="collapse-content overflow-x-auto">
+            <div className="collapse-content overflow-x-auto ">
               {convertToJSON ? (
-                <Table.JSON data={data} />
+                <Table.JSON data={result.currentPosts} />
               ) : (
-                <Table.Main data={data} />
+                <Table.Main data={result.currentPosts} />
+              )}
+              {!isEmpty && (
+                <div className="my-6 flex">
+                  <Pagination
+                    setPreviousPage={() =>
+                      setCurrenPage(result.meta.currentPage - 1)
+                    }
+                    setNextPage={() =>
+                      setCurrenPage(result.meta.currentPage + 1)
+                    }
+                    onPage={result.meta.currentPage}
+                    onCurrentPage={result.meta.currentPage}
+                    onTotalPage={result.meta.totalPages}
+                  />
+                </div>
               )}
             </div>
           </div>
