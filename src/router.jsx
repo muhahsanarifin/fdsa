@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "example",
+    path: "/example",
     element: (
       <Title onTitle={"Example"}>
         <Motion>
