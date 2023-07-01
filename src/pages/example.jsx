@@ -15,7 +15,7 @@ const Example = () => {
   };
 
   return (
-    <section className="min-h-screen flex flex-col">
+    <section className="min-h-screen flex flex-col w-[80vw] sm:w-auto sm:px-4">
       {/* Info section */}
       {!hideAlert && <Alert.Info setHandleCloseAlert={handleCloseAlert} />}
 

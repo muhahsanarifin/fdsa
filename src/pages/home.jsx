@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <section className="m-h-screen">
+    <section className="m-h-screen sm:w-screen sm:px-2">
       <Header />
       <Layout.Home />
       <Footer />
