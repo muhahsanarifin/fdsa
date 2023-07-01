@@ -17,7 +17,7 @@ const Home = () => {
     <div className="hero h-[30.375rem] my-8">
       <div className="hero-content sm:flex-col">
         <img
-          src="src/assets/logo-easy-peasy.png"
+          src="/src/assets/logo-easy-peasy.png"
           className="max-w-sm sm:w-[128px]"
         />
         <div className="sm:flex sm:flex-col sm:items-center">
