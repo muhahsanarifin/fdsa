@@ -24,7 +24,7 @@ const router = createBrowserRouter(
         }
       />
       <Route
-        path="example"
+        path="examples"
         element={
           <Title onTitle={"Example"}>
             <Motion>

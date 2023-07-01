@@ -25,7 +25,7 @@ const Home = () => {
           <p className="py-6 sm:py-2 sm:text-sm">{description}</p>
           <button
             className="btn btn-ghost sm:w-fit sm:mx-auto sm:text-[12px]"
-            onClick={() => navigate("/example")}
+            onClick={() => navigate("/examples")}
           >
             Example
           </button>
