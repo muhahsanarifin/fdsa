@@ -1,4 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
+import {
+  createRoutesFromElements,
+  createBrowserRouter,
+  Route,
+} from "react-router-dom";
 import Home from "./pages/home";
 import Example from "./pages/example";
 
@@ -6,27 +10,31 @@ import Example from "./pages/example";
 import Title from "./components/Title";
 import Motion from "./components/Motion";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <Title onTitle={"Home"}>
-        <Motion>
-          <Home />
-        </Motion>
-      </Title>
-    ),
-  },
-  {
-    path: "/example",
-    element: (
-      <Title onTitle={"Example"}>
-        <Motion>
-          <Example />
-        </Motion>
-      </Title>
-    ),
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      <Route
+        path="/"
+        element={
+          <Title onTitle={"Home"}>
+            <Motion>
+              <Home />
+            </Motion>
+          </Title>
+        }
+      />
+      <Route
+        path="example"
+        element={
+          <Title onTitle={"Example"}>
+            <Motion>
+              <Example />
+            </Motion>
+          </Title>
+        }
+      />
+    </Route>
+  )
+);
 
 export default router;
