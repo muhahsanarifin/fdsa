@@ -12,9 +12,9 @@ const Header = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <details className="font-[500]">
+            <details className="font-[500] dropdown sm:dropdown-end">
               <summary>Link</summary>
-              <ul className="p-2 bg-base-100 z-50">
+              <ul className="p-2 bg-base-100 z-50 dropdown-content">
                 {links.easy_peasy.map((link, idx) => (
                   <li key={idx}>
                     <a href={link.url} target="_blank">

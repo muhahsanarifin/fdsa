@@ -159,7 +159,7 @@ export const Json = () => {
   };
 
   return (
-    <section className="max-w-4xl mx-auto p-6 rounded-md shadow-md bg-base-200">
+    <section className="w-[50%] sm:w-auto lg:w-full mx-auto p-6 rounded-md shadow-md bg-base-200">
       <h2 className="text-lg font-semibold capitalize text-gray-700">
         Easy-Peasy Notes
       </h2>

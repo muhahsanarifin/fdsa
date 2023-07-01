@@ -15,13 +15,16 @@ const Home = () => {
 
   return (
     <div className="hero h-[30.375rem] my-8">
-      <div className="hero-content flex-col lg:flex-row">
-        <img src="src/assets/logo-easy-peasy.png" className="max-w-sm" />
-        <div>
-          <h1 className="text-5xl font-bold">{title}</h1>
-          <p className="py-6">{description}</p>
+      <div className="hero-content sm:flex-col">
+        <img
+          src="src/assets/logo-easy-peasy.png"
+          className="max-w-sm sm:w-[128px]"
+        />
+        <div className="sm:flex sm:flex-col sm:items-center">
+          <h1 className="text-5xl sm:text-xl font-bold">{title}</h1>
+          <p className="py-6 sm:py-2 sm:text-sm">{description}</p>
           <button
-            className="btn btn-ghost"
+            className="btn btn-ghost sm:w-fit sm:mx-auto sm:text-[12px]"
             onClick={() => navigate("/example")}
           >
             Example
@@ -86,7 +89,7 @@ const Example = () => {
   }, [data, currentPage]);
 
   return (
-    <div className=" my-5 mx-auto w-[50vw]">
+    <div className="my-5">
       {/* Form section */}
       <div className="flex">
         <Form.Json />
@@ -97,8 +100,10 @@ const Example = () => {
           <div className="collapse bg-base-200">
             <input type="checkbox" className="peer" />
             <div className="collapse-title font-semibold flex items-center">
-              <p>Click this to show/hide result</p>
-              <div className="flex items-center ml-auto z-50">
+              <p className="sm:text-xs sm:font-extrabold">
+                Click this to show/hide result
+              </p>
+              <div className="sm:absolute sm:right-4 flex gap-x-4 sm:gap-x-2 items-center ml-auto z-50">
                 <Button.Convert
                   onTitle={convertToJSON ? "Main Result" : "Convert to JSON"}
                   setHandleConvert={handleConvert}
@@ -109,14 +114,14 @@ const Example = () => {
                 />
               </div>
             </div>
-            <div className="collapse-content overflow-x-auto ">
+            <div className="collapse-content sm:overflow-x-auto sm:flex-col">
               {convertToJSON ? (
                 <Table.JSON data={result.currentPosts} />
               ) : (
                 <Table.Main data={result.currentPosts} />
               )}
               {!isEmpty && (
-                <div className="my-6 flex">
+                <div className="my-6 flex sm:w-[146%]">
                   <Pagination
                     setPreviousPage={() =>
                       setCurrenPage(result.meta.currentPage - 1)

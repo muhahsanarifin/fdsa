@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 
 export const Info = ({setHandleCloseAlert}) => {
   return (
-    <div className="alert w-[50vw] my-5 mx-auto">
+    <div className="alert w-[50vw] my-5 mx-auto sm:w-auto sm:flex lg:w-auto">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -16,7 +16,7 @@ export const Info = ({setHandleCloseAlert}) => {
           d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         ></path>
       </svg>
-      <span className="flex items-center gap-x-2 text-sm font-semibold">
+      <span className="text-sm font-semibold sm:text-[10px]">
         <p>
           Use{" "}
           <a
@@ -28,7 +28,7 @@ export const Info = ({setHandleCloseAlert}) => {
           for debugging state changes.
         </p>
       </span>
-      <div>
+      <div className="flex">
         <button onClick={setHandleCloseAlert}>
           <Icon icon="ion:close" width="24" />
         </button>

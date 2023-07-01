@@ -26,7 +26,7 @@ export const Save = ({ onTitle, onDisable }) => {
 export const deleteAll = ({ onTitle, setHandleDeleteAll }) => {
   return (
     <button
-      className="ml-auto px-8 py-2.5 leading-5 duration-300 transform text-gray-700 hover:text-gray-800 text-[12px]"
+      className="duration-300 transform text-gray-700 hover:text-gray-800 text-[12px] sm:text-xs"
       onClick={setHandleDeleteAll}
     >
       {onTitle}
@@ -43,7 +43,7 @@ export const Convert = ({ onTitle, setHandleConvert }) => {
   return (
     <button
       onClick={setHandleConvert}
-      className="text-gray-700 hover:text-gray-800 text-[12px]"
+      className="text-gray-700 hover:text-gray-800 text-[12px] sm:text-xs"
     >
       {onTitle}
     </button>

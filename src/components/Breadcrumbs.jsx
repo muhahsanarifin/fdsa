@@ -5,7 +5,7 @@ export const Breadcrumbs = ({ onELements }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="text-sm breadcrumbs my-5 mx-auto w-[50vw]">
+    <div className="text-sm breadcrumbs my-5">
       <ul>
         {onELements?.map((element, idx) => (
           <li
