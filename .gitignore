@@ -24,7 +24,23 @@ dist-ssr
 *.sw?
 
 # Component
-src/components
+# src/components
+# src/helpers/timer.js
 
 # Utils
-src/utils
+src/utils/api
+
+# Note
+note.js
+
+# Helper
+# src/helpers
+
+# Pages
+# src/pages/example.jsx
+
+# Easy Peasy
+# src/easy-peasy
+
+# Environment
+.env
