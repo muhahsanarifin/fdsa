@@ -1,7 +1,8 @@
 import {
   // BrowserRouter,
   // Routes,
-  // Route,
+  createRoutesFromElements,
+  Route,
   createBrowserRouter,
 } from "react-router-dom";
 
@@ -13,6 +14,7 @@ import Example from "./pages/Example";
 import Title from "./components/Title";
 import Motion from "./components/Motion";
 
+// --** First way **-- 
 // const App = () => {
 //   return (
 //     <BrowserRouter>
@@ -43,6 +45,34 @@ import Motion from "./components/Motion";
 // };
 
 // export default App;
+
+// --** Second way **-- 
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route>
+//       <Route
+//         path="/"
+//         element={
+//           <Title onTitle={"Home"}>
+//             <Motion>
+//               <Home />
+//             </Motion>
+//           </Title>
+//         }
+//       />
+//       <Route
+//         path="example"
+//         element={
+//           <Title onTitle={"Example"}>
+//             <Motion>
+//               <Example />
+//             </Motion>
+//           </Title>
+//         }
+//       />
+//     </Route>
+//   )
+// );
 
 const router = createBrowserRouter([
   {
