@@ -7,8 +7,8 @@ import {
 } from "react-router-dom";
 
 // Pages
-import Home from "./pages/Home";
-import Example from "./pages/Example";
+import Home from "./pages/home";
+import Example from "./pages/example";
 
 // Components
 import Title from "./components/Title";
