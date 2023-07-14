@@ -98,7 +98,7 @@ export const Json = () => {
     };
 
     // Data
-    data.splice(edit.data.idx, 1, note);
+    data.splice(edit.data.id - 1, 1, note);
 
     dispatch(actions.editNoteThunk(data));
 
