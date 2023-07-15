@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { th } from "../helpers/table";
 import * as event from "../helpers/events";
 import * as timer from "../helpers/timer";
@@ -8,7 +8,7 @@ import { useStoreDispatch, useStoreActions } from "easy-peasy";
 import actions from "../easy-peasy/models/actions";
 import { JsonViewer } from "@textea/json-viewer";
 
-export const Main = ({ data }) => {
+export const Main = ({ data, otherData, setCurrentPage }) => {
   const dispatch = useStoreDispatch();
   // const { edit } = useStoreActions((actions) => actions?.confirmation);
   const [activeTooltip, setActiveTooltip] = useState("");
@@ -46,14 +46,28 @@ export const Main = ({ data }) => {
   };
 
   const handleDelete = (id) => {
-    const notes = data.filter((el) => el.id !== id);
+    const notes = otherData.filter((el) => el.id !== id);
 
-    if (data.length === 1) {
+    if (otherData.length === 1) {
       const emptyNotes = {
         data: [],
         isEmpty: true,
       };
-      return dispatch(actions.deleteNoteThunk(emptyNotes));
+
+      dispatch(actions.deleteNoteThunk(emptyNotes));
+
+      const emptyOtherNotes = {
+        currentPosts: [],
+        isEmpty: true,
+        meta: {
+          currentPage: 1,
+          totalPage: 0,
+          totalPost: 0,
+        },
+      };
+
+      dispatch(actions.deleteNoteCurrentPostThunk(emptyOtherNotes));
+      return;
     }
 
     dispatch(
@@ -62,7 +76,28 @@ export const Main = ({ data }) => {
         isEmpty: false,
       })
     );
+
+    const otherNotes = data.currentPosts.filter((el) => el.id !== id);
+
+    dispatch(
+      actions.deleteNoteCurrentPostThunk({
+        currentPost: otherNotes,
+        isEmpty: data.isEmpty,
+        meta: {
+          currentPage: data.meta.currentPage,
+          totalPages: data.meta.totalPages,
+          totalPosts: data.meta.totalPosts,
+        },
+      })
+    );
   };
+
+  useEffect(() => {
+    if (data.meta.currentPage === 1 || data.currentPosts?.length < 1)
+      return setCurrentPage(1);
+    if (data.currentPosts?.length < 1)
+      setCurrentPage(data.meta.currentPage - 1);
+  }, [data]);
 
   return (
     <>
@@ -77,7 +112,7 @@ export const Main = ({ data }) => {
         </thead>
         <tbody>
           {/* row */}
-          {data.map((el, idx) => (
+          {data.currentPosts?.map((el, idx) => (
             <tr key={idx} className="odd:bg-white even:bg-slate-50">
               <th>{el.id}</th>
               <td>{el.author}</td>

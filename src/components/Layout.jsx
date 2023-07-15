@@ -48,9 +48,27 @@ const Example = () => {
 
   // Delete notes
   const handleDeleteNotes = () => {
-    const existNotes = data.length > 0 && [];
+    // Legacy script
+    // const existNotes = data.length > 0 && [];
+    // dispatch(actions.deleteNotesThunk(existNotes));
 
-    dispatch(actions.deleteNotesThunk(existNotes));
+    dispatch(
+      actions.deleteNotesThunk({
+        get: {
+          data: [],
+          isEmpty: true,
+        },
+        data: {
+          currentPosts: [],
+          isEmpty: true,
+          meta: {
+            currentPage: null,
+            totalPage: null,
+            totalPost: null,
+          },
+        },
+      })
+    );
   };
 
   const handleConvert = () => {
@@ -118,7 +136,14 @@ const Example = () => {
               {convertToJSON ? (
                 <Table.JSON data={result.currentPosts} />
               ) : (
-                <Table.Main data={result.currentPosts} />
+                /*  • data={result} from notes.data state, 
+                    • otherData={data} from notes.get.data state
+                */
+                <Table.Main
+                  data={result}
+                  otherData={data}
+                  setCurrentPage={setCurrenPage}
+                />
               )}
               {!isEmpty && (
                 <div className="my-6 flex sm:w-[146%]">
@@ -129,9 +154,9 @@ const Example = () => {
                     setNextPage={() =>
                       setCurrenPage(result.meta.currentPage + 1)
                     }
-                    onPage={result.meta.currentPage}
-                    onCurrentPage={result.meta.currentPage}
-                    onTotalPage={result.meta.totalPages}
+                    onPage={result?.meta.currentPage}
+                    onCurrentPage={result?.meta.currentPage}
+                    onTotalPage={result?.meta.totalPages}
                   />
                 </div>
               )}
