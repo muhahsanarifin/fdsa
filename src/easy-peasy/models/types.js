@@ -6,6 +6,7 @@ const types = {
   confirmationEdit: "CONFIRMATION_EDIT",
   getNotes: "NOTES_GET",
   editNoteCurrentPost: "NOTE_EDIT_CURRENT_POST",
+  deleteNoteCurrentPost: "NOTE_DELETE_CURRENT_POST",
 };
 
 export default types;

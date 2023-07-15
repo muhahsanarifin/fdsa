@@ -7,7 +7,7 @@ const addNotesAction = (data) => ({
 
 const deleteNotesAction = (data) => ({
   type: types.deleteNotes,
-  payload: { data },
+  payload: data,
 });
 
 const deleteNoteAction = (data) => ({
@@ -32,6 +32,11 @@ const getNotesAction = (data) => ({
 
 const editNoteCurrentPostAction = (data) => ({
   type: types.editNoteCurrentPost,
+  payload: data,
+});
+
+const deleteNoteCurrentPostAction = (data) => ({
+  type: types.deleteNoteCurrentPost,
   payload: data,
 });
 
@@ -77,6 +82,12 @@ const editNoteCurrentPostThunk = (payload) => {
   };
 };
 
+const deleteNoteCurrentPostThunk = (payload) => {
+  return async (dispatch) => {
+    dispatch(deleteNoteCurrentPostAction(payload));
+  };
+};
+
 const actions = {
   addNotesThunk,
   deleteNotesThunk,
@@ -85,6 +96,7 @@ const actions = {
   confirmationEditNoteThunk,
   getNotesThunk,
   editNoteCurrentPostThunk,
+  deleteNoteCurrentPostThunk,
 };
 
 export default actions;

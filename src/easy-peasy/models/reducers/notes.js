@@ -15,7 +15,7 @@ const initState = {
       currentPage: null,
       totalPage: null,
       totalPost: null,
-    }
+    },
   },
 };
 
@@ -27,6 +27,7 @@ const notesReducer = reducer((state = initState, action) => {
     editNote,
     getNotes,
     editNoteCurrentPost,
+    deleteNoteCurrentPost,
   } = types;
   switch (action.type) {
     case addNotes:
@@ -38,13 +39,7 @@ const notesReducer = reducer((state = initState, action) => {
         },
       };
     case deleteNotes:
-      return {
-        ...state,
-        get: {
-          data: action.payload.data,
-          isEmpty: true,
-        },
-      };
+      return action.payload;
     case deleteNote:
       return {
         ...state,
@@ -64,6 +59,11 @@ const notesReducer = reducer((state = initState, action) => {
         data: action.payload,
       };
     case editNoteCurrentPost:
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case deleteNoteCurrentPost:
       return {
         ...state,
         data: action.payload,
